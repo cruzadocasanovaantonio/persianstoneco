@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persia Stone — Meet us at Marmomac</title>
+<meta name="description" content="Persia Stone. From the depths of the earth, to the height of trust. Visit our stand at Marmomac 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(0.97 0.004 90);
+    --ink-dim: oklch(0.75 0.01 90);
+    --bg: oklch(0.15 0.006 240);
+    --bg-deep: oklch(0.10 0.006 240);
+    --surface: oklch(0.19 0.008 240);
+    --line: oklch(1 0 0 / 0.10);
+    --teal: oklch(0.52 0.08 200);
+    --teal-bright: oklch(0.62 0.10 200);
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:400;
+    text-wrap:balance;
+    letter-spacing:-0.02em;
+  }
+
+  p{ text-wrap:pretty; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{
+    max-width:1320px;
+    margin-inline:auto;
+    padding-inline:clamp(24px, 5vw, 64px);
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px clamp(24px, 5vw, 64px);
+    transition: background 0.4s var(--ease), padding 0.4s var(--ease), border-color 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled{
+    background: oklch(0.10 0.006 240 / 0.85);
+    backdrop-filter: blur(12px);
+    padding-block:18px;
+    border-color: var(--line);
+  }
+  .nav__mark{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    letter-spacing:0.02em;
+  }
+  .nav__mark span{ color:var(--teal-bright); }
+  .nav__cta{
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    padding:11px 22px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .nav__cta:hover{ border-color: var(--teal-bright); background: oklch(1 0 0 / 0.04); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+  }
+  .hero__bg{
+    position:absolute;
+    inset:-6% 0 -6% 0;
+    background: linear-gradient(180deg, oklch(0.08 0.006 240 / 0.35) 0%, oklch(0.08 0.006 240 / 0.55) 55%, var(--bg-deep) 100%), url('assets/hero-onyx.jpg') center 32% / cover no-repeat;
+    will-change:transform;
+  }
+  .hero__inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    padding:clamp(130px, 17vw, 190px) clamp(24px, 5vw, 64px) clamp(56px, 8vw, 100px);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5.6vw, 4.6rem);
+    max-width:19ch;
+    color:oklch(0.99 0.004 90);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.7s cubic-bezier(0.7, 0, 0.1, 1) 0.2s;
+  }
+  .hero.is-loaded h1{ clip-path: inset(0 0 0 0); }
+  .hero__sub{
+    margin-top:26px;
+    max-width:46ch;
+    font-size:clamp(1rem, 1.4vw, 1.2rem);
+    color:var(--ink-dim);
+    font-weight:300;
+    opacity:0;
+    transform:translateY(10px);
+    transition: opacity 1s var(--ease) 1.15s, transform 1s var(--ease) 1.15s;
+  }
+  .hero__actions{
+    margin-top:44px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .hero .hero__actions{
+    opacity:0;
+    transform:translateY(10px);
+    transition: opacity 1s var(--ease) 1.35s, transform 1s var(--ease) 1.35s;
+  }
+  .hero.is-loaded .hero__sub,
+  .hero.is-loaded .hero__actions{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 30px;
+    font-size:0.88rem;
+    letter-spacing:0.03em;
+    border-radius:2px;
+    overflow:hidden;
+    isolation:isolate;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color .35s var(--ease);
+    will-change:transform;
+  }
+  .btn::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform 0.5s var(--ease);
+  }
+  .btn--primary{
+    background:var(--teal);
+    color:oklch(0.98 0 0);
+  }
+  .btn--primary::before{ background:var(--teal-bright); }
+  .btn--primary:hover{ box-shadow: 0 12px 32px -10px oklch(0.62 0.10 200 / 0.55); }
+  .btn--primary:hover::before{ transform:scaleX(1); }
+  .btn--ghost{
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
+  .btn--ghost::before{ background: oklch(1 0 0 / 0.06); }
+  .btn--ghost:hover{ border-color:oklch(1 0 0 / 0.4); }
+  .btn--ghost:hover::before{ transform:scaleX(1); }
+
+  .hero__meta{
+    margin-top:56px;
+    display:flex;
+    gap:clamp(28px,4vw,56px);
+    flex-wrap:wrap;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    max-width:640px;
+    opacity:0;
+    transform:translateY(10px);
+    transition: opacity 1s var(--ease) 1.55s, transform 1s var(--ease) 1.55s;
+  }
+  .hero.is-loaded .hero__meta{ opacity:1; transform:translateY(0); }
+  .hero__meta div{ font-size:0.8rem; }
+  .hero__meta strong{
+    display:block;
+    font-family:var(--serif);
+    font-size:1.05rem;
+    font-weight:400;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .hero__meta span{ color:var(--ink-dim); }
+
+  /* ---------- Section shared ---------- */
+  section{ position:relative; }
+  .reveal{
+    opacity:1;
+    transform:none;
+  }
+  .js .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+  .js .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .kicker{
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    color:var(--teal-bright);
+    margin-bottom:18px;
+  }
+
+  /* ---------- Trust / quarry split ---------- */
+  .trust{
+    padding:clamp(80px,12vw,160px) 0;
+  }
+  .trust__grid{
+    display:grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap:clamp(40px,6vw,90px);
+    align-items:center;
+  }
+  .trust__img{
+    position:relative;
+    border-radius:2px;
+    perspective:1200px;
+  }
+  .trust__img__frame{
+    overflow:hidden;
+    border-radius:2px;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.5);
+    will-change:transform;
+  }
+  .trust__img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    aspect-ratio: 3/4;
+    filter:saturate(0.92) contrast(1.03);
+  }
+  .trust h2{
+    font-size:clamp(1.9rem, 3.4vw, 3rem);
+    max-width:14ch;
+  }
+  .trust p{
+    margin-top:22px;
+    max-width:52ch;
+    color:var(--ink-dim);
+    font-size:1.02rem;
+  }
+  .trust p + p{ margin-top:16px; }
+
+  .stat-row{
+    margin-top:40px;
+    display:flex;
+    gap:clamp(32px,5vw,64px);
+    flex-wrap:wrap;
+  }
+  .stat-row div strong{
+    display:block;
+    font-family:var(--serif);
+    font-size:1.8rem;
+    font-weight:400;
+    color:var(--ink);
+  }
+  .stat-row div span{
+    font-size:0.8rem;
+    color:var(--ink-dim);
+  }
+
+  /* ---------- Materials gallery ---------- */
+  .materials{
+    padding:clamp(70px,10vw,140px) 0 clamp(40px,6vw,80px);
+  }
+  .materials__head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:clamp(40px,6vw,64px);
+  }
+  .materials__head h2{
+    font-size:clamp(1.9rem, 3.4vw, 3rem);
+    max-width:16ch;
+  }
+  .materials__head p{
+    max-width:38ch;
+    color:var(--ink-dim);
+    font-size:0.98rem;
+  }
+
+  .coverflow{
+    position:relative;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    height:clamp(440px, 46vw, 640px);
+    perspective:2000px;
+    user-select:none;
+    touch-action:pan-y;
+  }
+  .coverflow__track{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    cursor:grab;
+  }
+  .coverflow__track:active{ cursor:grabbing; }
+  .cf-card{
+    position:absolute;
+    top:50%; left:50%;
+    width:min(30vw, 340px);
+    aspect-ratio:4/5;
+    cursor:pointer;
+    will-change:transform, opacity;
+    transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
+  }
+  .cf-card__img{
+    position:relative;
+    width:100%; height:100%;
+    overflow:hidden;
+    border-radius:3px;
+    box-shadow: 0 40px 80px -24px oklch(0 0 0 / 0.65);
+  }
+  .cf-card__img img{
+    width:100%; height:100%; object-fit:cover;
+    pointer-events:none;
+    -webkit-user-drag:none;
+  }
+  .cf-card__glow{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    background: radial-gradient(220px 220px at var(--mx,50%) var(--my,50%), oklch(1 0 0 / 0.22), transparent 62%);
+    transition: opacity 0.4s var(--ease);
+    pointer-events:none;
+  }
+  .cf-card:hover .cf-card__glow{ opacity:1; }
+  .cf-indicator__cat{
+    text-align:center;
+    font-family:var(--serif);
+    font-size:clamp(1.3rem, 2.4vw, 2rem);
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin-bottom:clamp(20px,3vw,36px);
+    transition: opacity 0.25s ease;
+  }
+  .coverflow__foot{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+    margin-top:clamp(20px,3vw,36px);
+  }
+  .cf-indicator__color{
+    min-width:9ch;
+    text-align:center;
+    font-size:0.86rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    transition: opacity 0.25s ease;
+  }
+  .cf-arrow{
+    width:42px; height:42px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid oklch(0.99 0.004 90);
+    border-radius:50%;
+    background:oklch(0.99 0.004 90);
+    color:oklch(0.12 0.006 240);
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .cf-arrow svg{ width:17px; height:17px; }
+  .cf-arrow:hover{ border-color:oklch(0.99 0.004 90); background:var(--bg); color:oklch(0.99 0.004 90); transform:translateY(-1px); }
+  .cf-arrow:active{ transform:translateY(0) scale(0.94); }
+
+  @media (max-width: 860px){
+    .cf-card{ width:min(52vw, 280px); }
+  }
+
+  /* ---------- Blocks / Italy section ---------- */
+  .blocks{
+    padding:clamp(90px,12vw,160px) 0;
+    background: var(--bg-deep);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .blocks__grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:clamp(40px,6vw,90px);
+    align-items:start;
+  }
+  .blocks h2{
+    font-size:clamp(1.9rem, 3.4vw, 3rem);
+    max-width:15ch;
+  }
+  .blocks p{
+    margin-top:22px;
+    color:var(--ink-dim);
+    max-width:50ch;
+    font-size:1.02rem;
+  }
+  .specs{
+    display:grid;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .specs div{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+    font-size:0.92rem;
+  }
+  .specs span:first-child{ color:var(--ink-dim); }
+  .specs span:last-child{ font-family:var(--serif); font-size:1rem; }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    position:relative;
+    padding:clamp(100px,16vw,220px) 0;
+    background: linear-gradient(180deg, var(--bg-deep) 0%, oklch(0.08 0.006 240 / 0.72) 40%, oklch(0.06 0.006 240 / 0.85) 100%), url('assets/cta-darkmarble.jpg') center / cover no-repeat;
+    text-align:center;
+  }
+  .cta__inner{ max-width:760px; margin-inline:auto; }
+  .cta h2{
+    font-size:clamp(2.2rem, 5vw, 4.2rem);
+    color:oklch(0.99 0.004 90);
+  }
+  .cta p{
+    margin-top:22px;
+    color:var(--ink-dim);
+    font-size:1.05rem;
+    max-width:48ch;
+    margin-inline:auto;
+  }
+  .cta .hero__actions{ justify-content:center; margin-top:40px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:56px clamp(24px,5vw,64px) 40px;
+    border-top:1px solid var(--line);
+  }
+  .foot__grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  .foot__mark{ font-family:var(--serif); font-size:1.05rem; transition:color 0.3s var(--ease); }
+  .foot__mark:hover{ color:var(--teal-bright); }
+  .foot__links{ display:flex; gap:28px; font-size:0.85rem; color:var(--ink-dim); flex-wrap:wrap; }
+  .foot__links a:hover{ color:var(--teal-bright); }
+  .foot__tag{
+    margin-top:18px;
+    font-size:0.78rem;
+    color:oklch(0.5 0.01 240);
+    letter-spacing:0.02em;
+  }
+
+  @media (max-width: 860px){
+    .trust__grid, .blocks__grid{ grid-template-columns:1fr; }
+    .trust__img img{ aspect-ratio:16/10; }
+    .film-card:nth-child(2n){ margin-top:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .js .reveal{ opacity:1; transform:none; transition:none; }
+    .cf-card{ transition:none; }
+    .hero h1{ clip-path:none !important; transition:none; }
+    .hero__sub, .hero .hero__actions, .hero__meta{ opacity:1 !important; transform:none !important; transition:none; }
+  }
+</style>
+</head>
+<body class="js">
+
+<nav class="nav" id="nav">
+  <a class="nav__mark" href="home.html" target="_blank" rel="noopener">PERSIA <span>STONE</span></a>
+  <a class="nav__cta" href="reserve.html" target="_blank" rel="noopener">Book your visit</a>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="hero__bg" id="heroBg"></div>
+  <div class="hero__inner">
+    <h1 id="heroTitle">Reliable block supply, direct from Iran's quarries.</h1>
+    <p class="hero__sub">Persia Stone has quarried and exported marble, travertine and onyx since 2010. At Marmomac, see the material in person and leave with pricing for your exact spec.</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting</a>
+    </div>
+    <div class="hero__meta">
+      <div><strong>Marmomac</strong><span>Sept 22–25, 2026 · Veronafiere</span></div>
+      <div><strong>Availability</strong><span>Limited slots each day</span></div>
+      <div><strong>Focus</strong><span>Blocks &amp; slabs for factories</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="trust">
+  <div class="wrap trust__grid">
+    <div class="trust__img reveal" id="trustImg">
+      <div class="trust__img__frame" id="trustImgFrame">
+        <img src="assets/quarry.jpg" alt="Persia Stone quarry" loading="lazy">
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="kicker">16 years quarrying. 11 years exporting.</div>
+      <h2>A trusted supplier to processing factories across Europe.</h2>
+      <p>Persia Stone has extracted and processed Iranian marble, travertine and onyx since 2010, and exported internationally since 2015. Today we already supply block material to a processing factory in Carrara — the epicenter of the marble industry — with consistent quality, reliable delivery, and full export handling through our own logistics company in Turkey.</p>
+      <p>We're now expanding that same relationship to factories across Italy and the rest of Europe, ahead of Marmomac.</p>
+      <div class="stat-row">
+        <div><strong>2010</strong><span>Founded in Isfahan</span></div>
+        <div><strong>2015</strong><span>Exporting internationally</span></div>
+        <div><strong>5</strong><span>Stone categories</span></div>
+        <div><strong>TR</strong><span>Export handled via Turkey</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="materials" id="materials">
+  <div class="wrap">
+    <div class="materials__head reveal">
+      <h2>Marble, travertine, onyx, limestone &amp; granite — cut from the same standard.</h2>
+      <p>The full Persia Stone collection, five categories deep. Drag to explore every finish, available in block, slab and tile.</p>
+    </div>
+  </div>
+
+  <div class="cf-indicator__cat reveal" id="cfCat">Travertine</div>
+
+  <div class="coverflow reveal" id="coverflow">
+    <div class="coverflow__track" id="coverflowTrack">
+      <div class="cf-card" data-color="Silver" data-type="Travertine" data-link="https://persiastoneco.com/product/copper-silver-travertine/"><div class="cf-card__img"><img src="assets/texture-travertine.jpg" alt="Silver Travertine" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Beige" data-type="Travertine" data-link="https://persiastoneco.com/product/beige-tavertine/"><div class="cf-card__img"><img src="assets/beige-travertine.jpg" alt="Beige Travertine" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="White" data-type="Travertine"><div class="cf-card__img"><img src="assets/white-travertine.jpg" alt="White Travertine" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Cream" data-type="Travertine"><div class="cf-card__img"><img src="assets/cream-travertine.jpg" alt="Cream Travertine" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Red" data-type="Travertine"><div class="cf-card__img"><img src="assets/red-travertine.jpg" alt="Red Travertine" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="White" data-type="Onyx"><div class="cf-card__img"><img src="assets/white-onyx.jpg" alt="White Onyx" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Pink" data-type="Onyx"><div class="cf-card__img"><img src="assets/pink-onyx.jpg" alt="Pink Onyx" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Green" data-type="Onyx"><div class="cf-card__img"><img src="assets/green-onyx.jpg" alt="Green Onyx" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Brown" data-type="Onyx"><div class="cf-card__img"><img src="assets/texture-royalbrown-onyx.jpg" alt="Brown Onyx" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Cream" data-type="Marble"><div class="cf-card__img"><img src="assets/cream-marble.jpg" alt="Cream Marble" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Silver Veined" data-type="Marble"><div class="cf-card__img"><img src="assets/silver-veined-marble.jpg" alt="Silver Veined Marble" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Ivory Mist" data-type="Limestone"><div class="cf-card__img"><img src="assets/ivory-mist-limestone.jpg" alt="Ivory Mist Limestone" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Bone White" data-type="Limestone"><div class="cf-card__img"><img src="assets/bone-white-limestone.jpg" alt="Bone White Limestone" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="White" data-type="Granite"><div class="cf-card__img"><img src="assets/white-granite.jpg" alt="White Granite" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Black" data-type="Granite"><div class="cf-card__img"><img src="assets/black-granite.jpg" alt="Black Granite" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Pearl" data-type="Granite"><div class="cf-card__img"><img src="assets/pearl-granite.jpg" alt="Pearl Granite" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+      <div class="cf-card" data-color="Green" data-type="Granite"><div class="cf-card__img"><img src="assets/green-granite.jpg" alt="Green Granite" loading="lazy" draggable="false"><div class="cf-card__glow"></div></div></div>
+    </div>
+  </div>
+
+  <div class="coverflow__foot reveal">
+    <button class="cf-arrow" id="cfPrev" aria-label="Previous finish">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <div class="cf-indicator__color" id="cfColor">Silver</div>
+    <button class="cf-arrow" id="cfNext" aria-label="Next finish">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<section class="blocks">
+  <div class="wrap blocks__grid">
+    <div class="reveal">
+      <div class="kicker">For Italian factories</div>
+      <h2>Blocks, supplied directly to your production line.</h2>
+      <p>We know Italian factories process their own material. That's why our Italy strategy is built around block supply — not finished slabs — so you keep full control over cutting, finishing and yield.</p>
+      <p>You deal directly with our team — one point of contact from quarry to your production line. Talk to us at Marmomac about your block specifications, and we'll bring the right material to the conversation.</p>
+    </div>
+    <div class="specs reveal">
+      <div><span>Format</span><span>Raw blocks</span></div>
+      <div><span>Slab range</span><span>250×130 – 300×190 cm</span></div>
+      <div><span>Export</span><span>FOB / CIF via Turkey</span></div>
+      <div><span>Certification</span><span>CE-ready documentation</span></div>
+      <div><span>Lead contact</span><span>Antonio Casanova</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="visit">
+  <div class="wrap cta__inner reveal">
+    <div class="kicker">Marmomac 2026</div>
+    <h2>Let's meet at the stand.</h2>
+    <p>20 minutes with our team — see the slabs in person, and leave with pricing for your exact spec. No obligation. Slots are limited across the 4 days of the show.</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot__grid">
+    <a class="foot__mark" href="home.html" target="_blank" rel="noopener">PERSIA STONE</a>
+    <div class="foot__links">
+      <a href="mailto:info@persiastoneco.com" target="_blank" rel="noopener">info@persiastoneco.com</a>
+      <a href="https://wa.me/989054642396" target="_blank" rel="noopener">+98 905 464 2396</a>
+    </div>
+  </div>
+  <div class="foot__tag">From the depths of the earth, to the height of trust.</div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- Coverflow carousel (infinite) ---------- */
+  (function(){
+    var track = document.getElementById('coverflowTrack');
+    if (!track) return;
+    var cards = Array.prototype.slice.call(track.children);
+    var catEl = document.getElementById('cfCat');
+    var colorEl = document.getElementById('cfColor');
+    var prevBtn = document.getElementById('cfPrev');
+    var nextBtn = document.getElementById('cfNext');
+    var n = cards.length;
+    var current = 0; // can grow/shrink without bound — wrapping happens per-card
+    var dragging = false;
+    var startX = 0;
+    var startCurrent = 0;
+    var moved = false;
+    var lastCat = null, lastColor = null;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // shortest signed distance from `current` to card i, wrapping around n
+    function wrappedOffset(i, cur){
+      var raw = (i - cur) % n;
+      if (raw < -n/2) raw += n;
+      if (raw > n/2) raw -= n;
+      return raw;
+    }
+
+    function activeIndex(){
+      return ((Math.round(current) % n) + n) % n;
+    }
+
+    function updateIndicator(card){
+      var cat = card.dataset.type, color = card.dataset.color;
+      if (cat === lastCat && color === lastColor) return;
+      lastCat = cat; lastColor = color;
+      if (catEl) catEl.style.opacity = 0;
+      if (colorEl) colorEl.style.opacity = 0;
+      setTimeout(function(){
+        if (catEl) { catEl.textContent = cat; catEl.style.opacity = 1; }
+        if (colorEl) { colorEl.textContent = color; colorEl.style.opacity = 1; }
+      }, 160);
+    }
+
+    function render(){
+      var spacing = window.innerWidth < 860 ? 108 : 168;
+      var activeCard = null;
+      cards.forEach(function(card, i){
+        var offset = wrappedOffset(i, current);
+        var abs = Math.min(Math.abs(offset), 3.4);
+        var tx = offset * spacing;
+        var rot = Math.max(-72, Math.min(72, -offset * 32));
+        var tz = -abs * 190;
+        var scale = 1 - abs * 0.13;
+        var op = 1 - abs * 0.3;
+        card.style.transform = 'translate(-50%,-50%) translateX(' + tx + 'px) translateZ(' + tz + 'px) rotateY(' + rot + 'deg) scale(' + Math.max(scale, 0.4) + ')';
+        card.style.opacity = String(Math.max(op, 0));
+        card.style.zIndex = String(200 - Math.round(abs * 10));
+        var isActive = Math.abs(offset) < 0.5;
+        card.classList.toggle('is-active', isActive);
+        if (isActive) activeCard = card;
+      });
+      if (activeCard) updateIndicator(activeCard);
+    }
+
+    function goTo(index){
+      current = ((Math.round(index) % n) + n) % n;
+      render();
+    }
+
+    function onDown(clientX){
+      dragging = true;
+      moved = false;
+      startX = clientX;
+      startCurrent = current;
+      track.style.cursor = 'grabbing';
+    }
+    function onMove(clientX){
+      if (!dragging) return;
+      var dx = clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      var spacing = window.innerWidth < 860 ? 108 : 168;
+      current = startCurrent - dx / spacing; // unbounded — infinite drag
+      render();
+    }
+    function onUp(){
+      if (!dragging) return;
+      dragging = false;
+      track.style.cursor = 'grab';
+      goTo(current);
+    }
+
+    track.addEventListener('pointerdown', function(e){ onDown(e.clientX); track.setPointerCapture(e.pointerId); });
+    window.addEventListener('pointermove', function(e){ onMove(e.clientX); });
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+
+    cards.forEach(function(card, i){
+      card.addEventListener('click', function(){
+        if (moved) return;
+        if (activeIndex() === i){
+          var link = card.getAttribute('data-link');
+          if (link) window.open(link, '_blank', 'noopener');
+        } else {
+          goTo(i);
+        }
+      });
+      // elegant spotlight that follows the cursor
+      card.addEventListener('pointermove', function(e){
+        var rect = card.getBoundingClientRect();
+        var mx = ((e.clientX - rect.left) / rect.width) * 100;
+        var my = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', mx + '%');
+        card.style.setProperty('--my', my + '%');
+      });
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(current + 1); });
+
+    window.addEventListener('resize', render);
+    window.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+
+    // set initial indicator without a fade-in delay
+    lastCat = cards[0].dataset.type;
+    lastColor = cards[0].dataset.color;
+    if (catEl) catEl.textContent = lastCat;
+    if (colorEl) colorEl.textContent = lastColor;
+
+    goTo(0);
+    if (reduced){
+      cards.forEach(function(c){ c.style.transition = 'none'; });
+    }
+  })();
+
+  /* ---------- Hero entrance + parallax ---------- */
+  (function(){
+    var hero = document.getElementById('hero');
+    var heroBg = document.getElementById('heroBg');
+    var title = document.getElementById('heroTitle');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!hero || !title) return;
+
+    requestAnimationFrame(function(){
+      hero.classList.add('is-loaded');
+    });
+
+    if (!reduced && heroBg){
+      window.addEventListener('scroll', function(){
+        var y = window.scrollY;
+        if (y < window.innerHeight * 1.2){
+          heroBg.style.transform = 'translateY(' + (y * 0.32) + 'px)';
+        }
+      }, { passive: true });
+    }
+  })();
+
+  /* ---------- Trust image tilt ---------- */
+  (function(){
+    var wrap = document.getElementById('trustImg');
+    var frame = document.getElementById('trustImgFrame');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!wrap || !frame || reduced) return;
+    wrap.addEventListener('pointermove', function(e){
+      var r = wrap.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform = 'rotateY(' + (px * 10) + 'deg) rotateX(' + (-py * 10) + 'deg) scale(1.02)';
+    });
+    wrap.addEventListener('pointerleave', function(){
+      frame.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+    });
+  })();
+
+  /* ---------- Magnetic buttons ---------- */
+  (function(){
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        var mx = (e.clientX - r.left - r.width / 2) * 0.25;
+        var my = (e.clientY - r.top - r.height / 2) * 0.35;
+        btn.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      });
+      btn.addEventListener('pointerleave', function(){
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

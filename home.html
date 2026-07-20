@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persia Stone — From the Depths of the Earth, to the Height of Trust</title>
+<meta name="description" content="Persia Stone produces and supplies premium marble, travertine, onyx, limestone and granite — from quarry to facade, floor and worktop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(0.97 0.004 90);
+    --ink-dim: oklch(0.75 0.01 90);
+    --bg: oklch(0.15 0.006 240);
+    --bg-deep: oklch(0.10 0.006 240);
+    --line: oklch(1 0 0 / 0.10);
+    --teal: oklch(0.52 0.08 200);
+    --teal-bright: oklch(0.62 0.10 200);
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-weight:300; line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  h1,h2,h3{ font-family:var(--serif); font-weight:400; text-wrap:balance; letter-spacing:-0.02em; }
+  p{ text-wrap:pretty; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1320px; margin-inline:auto; padding-inline:clamp(24px, 5vw, 64px); }
+  .kicker{ font-size:0.78rem; letter-spacing:0.05em; color:var(--teal-bright); margin-bottom:16px; }
+
+  section{ position:relative; }
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* Nav */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px clamp(24px, 5vw, 64px);
+    transition: background 0.4s var(--ease), padding 0.4s var(--ease), border-color 0.4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{ background:oklch(0.10 0.006 240 / 0.88); backdrop-filter:blur(12px); padding-block:16px; border-color:var(--line); }
+  .nav__mark{ font-family:var(--serif); font-size:1.15rem; letter-spacing:0.02em; }
+  .nav__mark span{ color:var(--teal-bright); }
+  .nav__cta{ font-size:0.82rem; letter-spacing:0.04em; padding:11px 22px; border:1px solid var(--line); border-radius:2px; transition:border-color .3s var(--ease), background .3s var(--ease); }
+  .nav__cta:hover{ border-color:var(--teal-bright); background:oklch(1 0 0 / 0.04); }
+
+  /* Buttons */
+  .btn{
+    position:relative; display:inline-flex; align-items:center; gap:10px;
+    padding:16px 30px; font-size:0.88rem; letter-spacing:0.03em; border-radius:2px;
+    overflow:hidden; isolation:isolate; cursor:pointer; border:none;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color .35s var(--ease);
+  }
+  .btn::before{ content:''; position:absolute; inset:0; z-index:-1; transform:scaleX(0); transform-origin:left; transition:transform .5s var(--ease); }
+  .btn--primary{ background:var(--teal); color:oklch(0.98 0 0); }
+  .btn--primary::before{ background:var(--teal-bright); }
+  .btn--primary:hover{ box-shadow:0 12px 32px -10px oklch(0.62 0.10 200 / 0.55); }
+  .btn--primary:hover::before{ transform:scaleX(1); }
+  .btn--ghost{ border:1px solid var(--line); color:var(--ink); background:transparent; }
+  .btn--ghost::before{ background:oklch(1 0 0 / 0.06); }
+  .btn--ghost:hover{ border-color:oklch(1 0 0 / 0.4); }
+  .btn--ghost:hover::before{ transform:scaleX(1); }
+
+  /* Hero — same entrance/parallax mechanic as the Marmomac page */
+  .hh-hero{
+    position:relative; min-height:100svh;
+    display:flex; align-items:center;
+    overflow:hidden;
+  }
+  .hh-hero__bgwrap{ position:absolute; inset:-6% 0; z-index:0; will-change:transform; }
+  .hh-hero__bglayer{
+    position:absolute; inset:0; background-size:cover; background-position:center 32%;
+    opacity:0; transition:opacity 1.4s var(--ease);
+  }
+  .hh-hero__bglayer.is-active{ opacity:1; }
+  .hh-hero__scrim{
+    position:absolute; inset:-6% 0; z-index:1; pointer-events:none;
+    background: linear-gradient(180deg, oklch(0.08 0.006 240 / 0.4) 0%, oklch(0.08 0.006 240 / 0.6) 55%, var(--bg-deep) 100%);
+  }
+  .hh-hero__inner{ position:relative; z-index:5; width:100%; max-width:640px; padding:clamp(130px, 17vw, 190px) clamp(32px, 6vw, 72px) clamp(56px, 8vw, 100px); }
+  .hh-hero h1{
+    font-size:clamp(2.1rem, 4.6vw, 3.9rem); max-width:20ch; color:oklch(0.99 0.004 90);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.7s cubic-bezier(0.7, 0, 0.1, 1) 0.2s;
+  }
+  .hh-hero.is-loaded h1{ clip-path: inset(0 0 0 0); }
+  .hh-hero__sub{
+    margin-top:24px; max-width:44ch; font-size:clamp(1rem, 1.4vw, 1.15rem); color:var(--ink-dim); font-weight:300;
+    opacity:0; transform:translateY(10px);
+    transition: opacity 1s var(--ease) 1.15s, transform 1s var(--ease) 1.15s;
+  }
+  .hh-hero.is-loaded .hh-hero__sub{ opacity:1; transform:translateY(0); }
+  .hh-hero__actions{ margin-top:40px; display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+    opacity:0; transform:translateY(10px);
+    transition: opacity 1s var(--ease) 1.35s, transform 1s var(--ease) 1.35s;
+  }
+  .hh-hero.is-loaded .hh-hero__actions{ opacity:1; transform:translateY(0); }
+  .hh-cta .hh-hero__actions{ opacity:1; transform:none; justify-content:center; }
+
+  /* ---------- Material showcase (Laminam-style interactive hero) ---------- */
+  /* Word sits ABOVE the swatch (not behind it) so it never gets sliced by the panel */
+  .hh-hero__word{
+    position:absolute; z-index:2; left:70%;
+    top:calc(50% - clamp(118px, 9vw, 168px));
+    transform:translate(-50%, calc(-100% - 16px));
+    text-align:center;
+    font-family:var(--serif); font-style:italic; font-weight:500;
+    font-size:clamp(1.7rem, 3.3vw, 2.9rem); letter-spacing:0.01em;
+    color:oklch(0.99 0.004 90 / 0.95); white-space:nowrap; pointer-events:none;
+    text-shadow:0 10px 26px oklch(0 0 0 / 0.5);
+    transition:opacity .6s var(--ease);
+  }
+  .hh-hero__word.is-fading{ opacity:0; }
+  .hh-hero__swatch{
+    position:absolute; z-index:3; left:70%; top:50%; transform:translate(-50%,-50%);
+    width:clamp(130px, 10.5vw, 190px); aspect-ratio:0.62; border-radius:2px; overflow:hidden;
+    box-shadow:0 46px 90px -32px oklch(0 0 0 / 0.65), 0 0 0 1px oklch(1 0 0 / 0.08);
+  }
+  .hh-hero__swatch img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0; transition:opacity 1s var(--ease);
+  }
+  .hh-hero__swatch img.is-active{ opacity:1; }
+  .hh-hero__caption{
+    position:absolute; z-index:3; left:70%; top:calc(50% + clamp(120px, 11vw, 170px)); transform:translateX(-50%);
+    text-align:center; font-size:0.85rem; font-weight:600; letter-spacing:0.04em; color:var(--ink); white-space:nowrap;
+    opacity:0; transition:opacity .6s var(--ease);
+  }
+  .hh-hero__caption.is-visible{ opacity:1; }
+
+  .hh-hero__rail{
+    position:absolute; z-index:4; right:clamp(20px, 4vw, 56px); top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .hh-rail__item{
+    position:relative; width:52px; height:72px; border-radius:100px; overflow:hidden;
+    background-size:cover; background-position:center; cursor:pointer;
+    border:1.5px solid oklch(1 0 0 / 0.18); background-color:oklch(0.2 0.006 240);
+    opacity:0.55; filter:saturate(0.6) brightness(0.7);
+    transform:scale(0.94);
+    transition: opacity .5s var(--ease), filter .5s var(--ease), transform .5s var(--ease), border-color .5s var(--ease);
+  }
+  .hh-rail__item span{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:0.68rem; letter-spacing:0.05em; color:oklch(0.99 0.004 90 / 0.85);
+    text-shadow:0 2px 8px oklch(0 0 0 / 0.6);
+  }
+  .hh-rail__item:hover{ opacity:0.85; filter:saturate(0.85) brightness(0.85); }
+  .hh-rail__item.is-active{
+    opacity:1; filter:none; transform:scale(1.08); border-color:oklch(0.99 0.004 90 / 0.65);
+    box-shadow:0 14px 30px -12px oklch(0 0 0 / 0.6);
+  }
+  .hh-rail__item.is-active span{ opacity:0; }
+
+  @media (max-width: 980px){
+    .hh-hero__word, .hh-hero__swatch, .hh-hero__caption, .hh-hero__rail{ display:none; }
+    .hh-hero__inner{ max-width:640px; }
+  }
+
+  /* Section header row — kicker + heading left, link button top-right */
+  .hh-sechead{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .hh-sechead h2{ font-size:clamp(1.9rem, 3.2vw, 2.9rem); max-width:16ch; }
+  .hh-sechead .btn{ padding:14px 26px; font-size:0.82rem; white-space:nowrap; }
+
+  /* Categories — flat cards, thin stroke, alternating heights, true color (Margraf-style) */
+  .hh-categories{ padding:clamp(90px,11vw,150px) 0 clamp(50px,7vw,90px); }
+  .hh-cat-grid{
+    margin-top:clamp(44px,5vw,68px);
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:16px;
+  }
+  .hh-cat-cell{ display:block; }
+  .hh-cat-cell:nth-child(2n){ margin-top:clamp(28px,4vw,48px); }
+  .hh-cat-card{
+    position:relative; overflow:hidden; aspect-ratio:3/4.4;
+    border:1px solid var(--line); background:var(--bg-deep);
+    clip-path: polygon(9% 0%, 100% 0%, 100% 91%, 91% 100%, 0% 100%, 0% 9%);
+    transition: border-color .3s var(--ease);
+  }
+  .hh-cat-card img{ width:100%; height:100%; object-fit:cover; transition:transform 1s var(--ease); }
+  .hh-cat-cell:hover .hh-cat-card{ border-color:oklch(1 0 0 / 0.35); }
+  .hh-cat-cell:hover .hh-cat-card img{ transform:scale(1.06); }
+  .hh-cat-card__label{
+    margin-top:14px; font-family:var(--sans); font-weight:500; font-size:0.92rem; color:var(--ink);
+    transition:color .3s var(--ease);
+  }
+  .hh-cat-cell:hover .hh-cat-card__label{ color:var(--teal-bright); }
+  .hh-cat-card__label small{ display:block; margin-top:3px; font-size:0.7rem; letter-spacing:0.05em; font-weight:300; color:var(--ink-dim); }
+
+  @media (max-width: 980px){
+    .hh-cat-grid{ grid-template-columns:repeat(3, 1fr); }
+    .hh-cat-cell:nth-child(2n){ margin-top:0; }
+    .hh-cat-cell:nth-child(3n+2){ margin-top:clamp(28px,4vw,48px); }
+  }
+  @media (max-width: 620px){
+    .hh-cat-grid{ grid-template-columns:repeat(2, 1fr); }
+    .hh-cat-cell:nth-child(3n+2){ margin-top:0; }
+    .hh-cat-cell:nth-child(2n){ margin-top:clamp(24px,4vw,40px); }
+  }
+
+  /* Applications */
+  .hh-applications{ padding:clamp(70px,9vw,120px) 0; background:var(--bg-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .hh-app-grid{
+    margin-top:clamp(40px,5vw,64px);
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+  }
+  .hh-app-card{ position:relative; aspect-ratio:5/4; overflow:hidden; border:1px solid var(--line); }
+  .hh-app-card img{ width:100%; height:100%; object-fit:cover; transition:transform 1s var(--ease); }
+  .hh-app-card:hover img{ transform:scale(1.06); }
+  .hh-app-card__overlay{ position:absolute; inset:0; background:linear-gradient(180deg, transparent 45%, oklch(0.05 0.006 240 / 0.78) 100%); }
+  .hh-app-card__label{ position:absolute; left:18px; bottom:16px; font-size:0.95rem; }
+
+  @media (max-width: 900px){ .hh-app-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width: 540px){ .hh-app-grid{ grid-template-columns:1fr; } }
+
+  /* Trust */
+  .hh-trust{ padding:clamp(80px,12vw,160px) 0; }
+  .hh-trust__grid{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:clamp(40px,6vw,90px); align-items:center; }
+  .hh-trust__img{ overflow:hidden; border:1px solid var(--line); }
+  .hh-trust__img img{ width:100%; height:100%; object-fit:cover; aspect-ratio:3/4; filter:saturate(0.92) contrast(1.03); }
+  .hh-trust h2{ font-size:clamp(1.9rem, 3.4vw, 3rem); max-width:14ch; }
+  .hh-trust p{ margin-top:20px; max-width:52ch; color:var(--ink-dim); font-size:1.02rem; }
+  .hh-trust p + p{ margin-top:14px; }
+
+  /* About us — mirrored split, reversed order from Trust for editorial rhythm */
+  .hh-about{ padding:clamp(60px,9vw,110px) 0 clamp(100px,14vw,180px); background:var(--bg-deep); border-top:1px solid var(--line); }
+  .hh-about__grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(40px,6vw,90px); align-items:center; }
+  .hh-about__img{ position:relative; order:2; perspective:1200px; }
+  .hh-about__frame{
+    position:relative; overflow:hidden; border:1px solid var(--line);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    box-shadow:0 30px 60px -30px oklch(0 0 0 / 0.5);
+    will-change:transform;
+  }
+  .hh-about__frame::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    box-shadow: inset 0 0 70px 12px oklch(0.08 0.006 240 / 0.4);
+  }
+  .hh-about__img img{
+    width:100%; height:100%; object-fit:cover; aspect-ratio:3/4;
+    transition:transform 1s var(--ease);
+    filter:saturate(0.88) contrast(1.08) brightness(0.94);
+  }
+  .hh-about__img:hover img{ transform:scale(1.05); }
+  .hh-about h2{ font-size:clamp(1.9rem, 3.4vw, 3rem); max-width:14ch; }
+  .hh-about p{ margin-top:20px; max-width:50ch; color:var(--ink-dim); font-size:1.02rem; }
+
+  @media (max-width: 860px){
+    .hh-about__grid{ grid-template-columns:1fr; }
+    .hh-about__img{ order:-1; }
+    .hh-about__img img{ aspect-ratio:16/10; }
+  }
+
+  /* CTA */
+  .hh-cta{
+    position:relative; padding:clamp(100px,16vw,200px) 0; text-align:center;
+    background: linear-gradient(180deg, var(--bg-deep) 0%, oklch(0.08 0.006 240 / 0.72) 40%, oklch(0.06 0.006 240 / 0.85) 100%), url('assets/cta-darkmarble.jpg') center / cover no-repeat;
+  }
+  .hh-cta__inner{ max-width:720px; margin-inline:auto; }
+  .hh-cta h2{ font-size:clamp(2.1rem, 4.6vw, 3.8rem); color:oklch(0.99 0.004 90); }
+  .hh-cta p{ margin-top:20px; color:var(--ink-dim); font-size:1.02rem; max-width:46ch; margin-inline:auto; }
+  .hh-cta .hh-hero__actions{ margin-top:38px; }
+
+  /* Footer */
+  footer{ padding:48px clamp(24px,5vw,64px) 36px; border-top:1px solid var(--line); }
+  .foot__grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .foot__mark{ font-family:var(--serif); font-size:1.05rem; transition:color .3s var(--ease); }
+  .foot__mark:hover{ color:var(--teal-bright); }
+  .foot__links{ display:flex; gap:28px; font-size:0.85rem; color:var(--ink-dim); flex-wrap:wrap; }
+  .foot__links a:hover{ color:var(--teal-bright); }
+
+  @media (max-width: 860px){
+    .hh-trust__grid{ grid-template-columns:1fr; }
+    .hh-trust__img img{ aspect-ratio:16/10; }
+  }
+</style>
+</head>
+<body class="js">
+
+<nav class="nav" id="nav">
+  <a class="nav__mark" href="home.html" target="_blank" rel="noopener">PERSIA <span>STONE</span></a>
+  <a class="nav__cta" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting</a>
+</nav>
+
+<header class="hh-hero" id="hhHero">
+  <div class="hh-hero__bgwrap" id="hhHeroBg">
+    <div class="hh-hero__bglayer is-active" id="hhBgLayerA" style="background-image:url('assets/app-facade.png')"></div>
+    <div class="hh-hero__bglayer" id="hhBgLayerB" style="background-image:url('assets/app-bathroom.png')"></div>
+  </div>
+  <div class="hh-hero__scrim"></div>
+
+  <div class="hh-hero__word" id="hhHeroWord" aria-hidden="true">TRAVERTINE</div>
+  <div class="hh-hero__swatch" id="hhHeroSwatch" aria-hidden="true">
+    <img class="is-active" src="assets/texture-travertine.jpg" alt="">
+    <img src="assets/texture-royalbrown-onyx.jpg" alt="">
+  </div>
+  <div class="hh-hero__caption is-visible" id="hhHeroCaption" aria-hidden="true">4 finishes · 5 colours</div>
+
+  <div class="hh-hero__inner">
+    <h1 id="hhHeroTitle">Premium Persian blocks and slabs for stone processors.</h1>
+    <p class="hh-hero__sub">Marble, travertine, onyx, limestone and granite — quarried and exported by Persia Stone since 2010, to processing factories across Europe.</p>
+    <div class="hh-hero__actions">
+      <a class="btn btn--primary" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting</a>
+      <a class="btn btn--ghost" href="https://persiastoneco.com/products/" target="_blank" rel="noopener">Explore the collection</a>
+    </div>
+  </div>
+
+  <div class="hh-hero__rail" id="hhHeroRail">
+    <button class="hh-rail__item is-active" data-index="0" style="background-image:url('assets/texture-travertine.jpg')" aria-label="Travertine"><span>01</span></button>
+    <button class="hh-rail__item" data-index="1" style="background-image:url('assets/texture-royalbrown-onyx.jpg')" aria-label="Onyx"><span>02</span></button>
+    <button class="hh-rail__item" data-index="2" style="background-image:url('assets/silver-veined-marble.jpg')" aria-label="Marble"><span>03</span></button>
+    <button class="hh-rail__item" data-index="3" style="background-image:url('assets/ivory-mist-limestone.jpg')" aria-label="Limestone"><span>04</span></button>
+    <button class="hh-rail__item" data-index="4" style="background-image:url('assets/black-granite.jpg')" aria-label="Granite"><span>05</span></button>
+  </div>
+
+</header>
+
+<section class="hh-categories reveal" id="categories">
+  <div class="wrap hh-sechead">
+    <div>
+      <div class="kicker">Our Collection</div>
+      <h2>Five categories, cut from the same standard.</h2>
+    </div>
+    <a class="btn btn--ghost" href="index.html#materials" target="_blank" rel="noopener">All finishes ↗</a>
+  </div>
+  <div class="wrap">
+  <div class="hh-cat-grid">
+    <a class="hh-cat-cell" href="index.html#materials" target="_blank" rel="noopener">
+      <div class="hh-cat-card"><img src="assets/texture-travertine.jpg" alt="Travertine" loading="lazy"></div>
+      <div class="hh-cat-card__label">Travertine<small>4 finishes · 5 colours</small></div>
+    </a>
+    <a class="hh-cat-cell" href="index.html#materials" target="_blank" rel="noopener">
+      <div class="hh-cat-card"><img src="assets/texture-royalbrown-onyx.jpg" alt="Onyx" loading="lazy"></div>
+      <div class="hh-cat-card__label">Onyx<small>1 finish · 4 colours</small></div>
+    </a>
+    <a class="hh-cat-cell" href="index.html#materials" target="_blank" rel="noopener">
+      <div class="hh-cat-card"><img src="assets/silver-veined-marble.jpg" alt="Marble" loading="lazy"></div>
+      <div class="hh-cat-card__label">Marble<small>5 finishes · 2 colours</small></div>
+    </a>
+    <a class="hh-cat-cell" href="index.html#materials" target="_blank" rel="noopener">
+      <div class="hh-cat-card"><img src="assets/ivory-mist-limestone.jpg" alt="Limestone" loading="lazy"></div>
+      <div class="hh-cat-card__label">Limestone<small>1 finish · 2 colours</small></div>
+    </a>
+    <a class="hh-cat-cell" href="index.html#materials" target="_blank" rel="noopener">
+      <div class="hh-cat-card"><img src="assets/black-granite.jpg" alt="Granite" loading="lazy"></div>
+      <div class="hh-cat-card__label">Granite<small>3 finishes · 4 colours</small></div>
+    </a>
+  </div>
+  </div>
+</section>
+
+<section class="hh-applications reveal">
+  <div class="wrap hh-sechead">
+    <div>
+      <div class="kicker">Applications</div>
+      <h2>Where Persia Stone lives.</h2>
+    </div>
+    <a class="btn btn--primary" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting ↗</a>
+  </div>
+  <div class="wrap hh-app-grid">
+    <div class="hh-app-card">
+      <img src="assets/app-kitchen.png" alt="Kitchen Worktops" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Kitchen Worktops</div>
+    </div>
+    <div class="hh-app-card">
+      <img src="assets/app-bathroom.png" alt="Bathroom &amp; Wet Areas" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Bathroom &amp; Wet Areas</div>
+    </div>
+    <div class="hh-app-card">
+      <img src="assets/app-flooring.png" alt="Flooring" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Flooring</div>
+    </div>
+    <div class="hh-app-card">
+      <img src="assets/app-wallcladding.png" alt="Wall Cladding" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Wall Cladding</div>
+    </div>
+    <div class="hh-app-card">
+      <img src="assets/app-facade.png" alt="Facade Cladding" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Facade Cladding</div>
+    </div>
+    <div class="hh-app-card">
+      <img src="assets/app-hospitality.png" alt="Hospitality" loading="lazy">
+      <div class="hh-app-card__overlay"></div>
+      <div class="hh-app-card__label">Hospitality</div>
+    </div>
+  </div>
+</section>
+
+<section class="hh-trust reveal">
+  <div class="wrap hh-trust__grid">
+    <div class="hh-trust__img">
+      <img src="assets/quarry.jpg" alt="Persia Stone quarry" loading="lazy">
+    </div>
+    <div>
+      <div class="kicker">From the depths of the earth, to the height of trust</div>
+      <h2>Quarried with care, exported with precision.</h2>
+      <p>Persia Stone produces and supplies premium stone blocks and slabs that reflect natural beauty and superior craftsmanship. Each block is carefully selected and processed to ensure exceptional quality, durability and elegance.</p>
+      <p>Our own export company in Turkey handles every formality, so factories across Europe — from Carrara to the rest of Italy — receive their material on time, every time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hh-about reveal">
+  <div class="wrap hh-about__grid">
+    <div>
+      <div class="kicker">About us</div>
+      <h2>We are Persia Stone.</h2>
+      <p>Persia Stone is inspired by the Persian history in the stone industry. For thousands of years, Persians have known how to extract stone and decorate their constructions. Rich Iranian quarries, together with genius workers, led to making this history.</p>
+    </div>
+    <div class="hh-about__img" id="hhAboutImg">
+      <div class="hh-about__frame" id="hhAboutFrame">
+        <img src="assets/we-are-persia.jpg" alt="Persia Stone quarry blocks at sunset" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hh-cta">
+  <div class="wrap hh-cta__inner">
+    <div class="kicker">Let's talk</div>
+    <h2>Ready to bring Persia Stone to your project?</h2>
+    <p>Whether it's blocks for your factory or slabs for a single project, our team replies personally — direct from Isfahan to your inbox.</p>
+    <div class="hh-hero__actions">
+      <a class="btn btn--primary" href="reserve.html" target="_blank" rel="noopener">Reserve a meeting</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot__grid">
+    <a class="foot__mark" href="home.html" target="_blank" rel="noopener">PERSIA STONE</a>
+    <div class="foot__links">
+      <a href="mailto:info@persiastoneco.com" target="_blank" rel="noopener">info@persiastoneco.com</a>
+      <a href="https://wa.me/989054642396" target="_blank" rel="noopener">+98 905 464 2396</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  (function(){
+    var hero = document.getElementById('hhHero');
+    var heroBg = document.getElementById('hhHeroBg');
+    var title = document.getElementById('hhHeroTitle');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!hero || !title) return;
+    requestAnimationFrame(function(){ hero.classList.add('is-loaded'); });
+    if (!reduced && heroBg){
+      window.addEventListener('scroll', function(){
+        var y = window.scrollY;
+        if (y < window.innerHeight * 1.2){
+          heroBg.style.transform = 'translateY(' + (y * 0.32) + 'px)';
+        }
+      }, { passive:true });
+    }
+  })();
+
+  /* ---------- Material showcase: crossfading word / swatch / rail ---------- */
+  (function(){
+    var rail = document.getElementById('hhHeroRail');
+    var word = document.getElementById('hhHeroWord');
+    var swatch = document.getElementById('hhHeroSwatch');
+    var caption = document.getElementById('hhHeroCaption');
+    var bgA = document.getElementById('hhBgLayerA');
+    var bgB = document.getElementById('hhBgLayerB');
+    if (!rail || !word || !swatch) return;
+
+    var scenes = [
+      { name:'Travertine', img:'assets/texture-travertine.jpg', bg:'assets/app-facade.png', finishes:4, colours:5 },
+      { name:'Onyx', img:'assets/texture-royalbrown-onyx.jpg', bg:'assets/app-bathroom.png', finishes:1, colours:4 },
+      { name:'Marble', img:'assets/silver-veined-marble.jpg', bg:'assets/app-hospitality.png', finishes:5, colours:2 },
+      { name:'Limestone', img:'assets/ivory-mist-limestone.jpg', bg:'assets/app-flooring.png', finishes:1, colours:2 },
+      { name:'Granite', img:'assets/black-granite.jpg', bg:'assets/app-kitchen.png', finishes:3, colours:4 }
+    ];
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = Array.prototype.slice.call(rail.querySelectorAll('.hh-rail__item'));
+    var imgs = Array.prototype.slice.call(swatch.querySelectorAll('img'));
+    var bgLayers = [bgA, bgB].filter(Boolean);
+    var current = 0, timer = null;
+
+    function show(index){
+      if (index === current) return;
+      var scene = scenes[index];
+
+      items.forEach(function(el, i){ el.classList.toggle('is-active', i === index); });
+
+      word.classList.add('is-fading');
+      caption.classList.remove('is-visible');
+
+      setTimeout(function(){
+        word.textContent = scene.name.toUpperCase();
+        var finishLabel = scene.finishes + (scene.finishes === 1 ? ' finish' : ' finishes');
+        var colourLabel = scene.colours + (scene.colours === 1 ? ' colour' : ' colours');
+        caption.textContent = finishLabel + ' · ' + colourLabel;
+        word.classList.remove('is-fading');
+        caption.classList.add('is-visible');
+
+        var incoming = imgs.find(function(im){ return !im.classList.contains('is-active'); }) || imgs[0];
+        imgs.forEach(function(im){ if (im !== incoming) im.classList.remove('is-active'); });
+        incoming.src = scene.img;
+        incoming.classList.add('is-active');
+
+        if (bgLayers.length === 2){
+          var incomingBg = bgLayers.find(function(l){ return !l.classList.contains('is-active'); }) || bgLayers[0];
+          bgLayers.forEach(function(l){ if (l !== incomingBg) l.classList.remove('is-active'); });
+          incomingBg.style.backgroundImage = "url('" + scene.bg + "')";
+          incomingBg.classList.add('is-active');
+        }
+      }, reduced ? 0 : 350);
+
+      current = index;
+    }
+
+    function restart(){
+      if (timer) clearInterval(timer);
+      if (reduced) return;
+      timer = setInterval(function(){ show((current + 1) % scenes.length); }, 4200);
+    }
+
+    items.forEach(function(el){
+      el.addEventListener('click', function(){
+        show(parseInt(el.getAttribute('data-index'), 10));
+        restart();
+      });
+    });
+
+    restart();
+  })();
+
+  /* ---------- Magnetic buttons ---------- */
+  (function(){
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        var mx = (e.clientX - r.left - r.width / 2) * 0.25;
+        var my = (e.clientY - r.top - r.height / 2) * 0.35;
+        btn.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      });
+      btn.addEventListener('pointerleave', function(){
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+  })();
+
+  /* ---------- About us image tilt ---------- */
+  (function(){
+    var wrap = document.getElementById('hhAboutImg');
+    var frame = document.getElementById('hhAboutFrame');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!wrap || !frame || reduced) return;
+    wrap.addEventListener('pointermove', function(e){
+      var r = wrap.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform = 'rotateY(' + (px * 10) + 'deg) rotateX(' + (-py * 10) + 'deg) scale(1.02)';
+    });
+    wrap.addEventListener('pointerleave', function(){
+      frame.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+    });
+  })();
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+</body>
+</html>
