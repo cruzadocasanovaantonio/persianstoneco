@@ -65,6 +65,7 @@
     align-items:center;
     justify-content:space-between;
     padding:28px clamp(24px, 5vw, 64px);
+    background: linear-gradient(180deg, oklch(0.06 0.006 240 / 0.6) 0%, oklch(0.06 0.006 240 / 0.25) 65%, transparent 100%);
     transition: background 0.4s var(--ease), padding 0.4s var(--ease), border-color 0.4s var(--ease);
     border-bottom: 1px solid transparent;
   }
@@ -78,6 +79,7 @@
     font-family:var(--serif);
     font-size:1.15rem;
     letter-spacing:0.02em;
+    text-shadow: 0 2px 12px oklch(0 0 0 / 0.5);
   }
   .nav__mark span{ color:var(--teal-bright); }
   .nav__cta{
@@ -101,8 +103,11 @@
   .hero__bg{
     position:absolute;
     inset:-6% 0 -6% 0;
-    background: linear-gradient(180deg, oklch(0.08 0.006 240 / 0.35) 0%, oklch(0.08 0.006 240 / 0.55) 55%, var(--bg-deep) 100%), url('hero-onyx.jpg') center 32% / cover no-repeat;
+    background: linear-gradient(180deg, oklch(0.08 0.006 240 / 0.55) 0%, oklch(0.08 0.006 240 / 0.62) 45%, var(--bg-deep) 100%), url('hero-onyx.jpg') center 32% / cover no-repeat;
     will-change:transform;
+  }
+  @media (max-width: 640px){
+    .hero__bg{ inset:0; }
   }
   .hero__inner{
     position:relative;
@@ -123,6 +128,7 @@
     max-width:46ch;
     font-size:clamp(1rem, 1.4vw, 1.2rem);
     color:var(--ink-dim);
+    text-shadow: 0 2px 16px oklch(0 0 0 / 0.5);
     font-weight:300;
     opacity:0;
     transform:translateY(10px);
@@ -790,7 +796,7 @@
       hero.classList.add('is-loaded');
     });
 
-    if (!reduced && heroBg){
+    if (!reduced && heroBg && window.innerWidth > 640){
       window.addEventListener('scroll', function(){
         var y = window.scrollY;
         if (y < window.innerHeight * 1.2){
