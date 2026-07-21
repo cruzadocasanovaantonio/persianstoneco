@@ -29,6 +29,7 @@
     font-weight:300;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    padding-top:88px;
   }
   img{ max-width:100%; display:block; }
   h1,h2,h3{ font-family:var(--serif); font-weight:400; text-wrap:balance; letter-spacing:-0.02em; }
@@ -37,7 +38,7 @@
   .wrap{ max-width:1320px; margin-inline:auto; padding-inline:clamp(24px, 5vw, 64px); }
 
   .nav{
-    position:sticky; top:0; z-index:100;
+    position:fixed; top:0; left:0; right:0; z-index:100;
     display:flex; align-items:center; justify-content:space-between;
     padding:22px clamp(24px, 5vw, 64px);
     background: oklch(0.10 0.006 240 / 0.9);
@@ -49,6 +50,7 @@
   .nav__cta{
     font-size:0.82rem; letter-spacing:0.04em; padding:11px 22px;
     border:1px solid var(--line); border-radius:2px;
+    text-shadow: 0 1px 8px oklch(0 0 0 / 0.4);
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
   }
   .nav__cta:hover{ border-color: var(--teal-bright); background: oklch(1 0 0 / 0.04); }
